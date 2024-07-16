@@ -7,3 +7,4 @@ tempCodeRunnerFile.py
 res-example/
 # 将备份文件夹也加入到忽略列表避免主动外流付费内容
 post/
+comments/
