@@ -1,4 +1,7 @@
 .history/*
 # 避免泄露敏感信息
 .env
+
 tempCodeRunnerFile.py
+# 不上传临时保存的测试结果
+res-example/
