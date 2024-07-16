@@ -5,3 +5,5 @@
 tempCodeRunnerFile.py
 # 不上传临时保存的测试结果
 res-example/
+# 将备份文件夹也加入到忽略列表避免主动外流付费内容
+post/

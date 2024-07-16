@@ -42,7 +42,7 @@ headers = {
 """
     保存 API 测试结果
 """
-def save_api_response(api_name, response_data, base_path="res-example"):
+def save_api_response(api_name, response_data, base_path="post"):
     full_path = os.path.join(base_path, api_name)
     if not os.path.exists(full_path):
         os.makedirs(full_path)
