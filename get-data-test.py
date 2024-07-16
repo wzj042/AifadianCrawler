@@ -13,6 +13,12 @@ class API:
             "url": f"{cls.BASE_URL}/post/get-detail?post_id={post_id}",
             "name": "get-post-detail"
         }
+    @classmethod
+    def post_list(cls, user_id, publish_sn, per_page=10):
+        return {
+            "url": f"{cls.BASE_URL}/post/get-list?user_id={user_id}&publish_sn={publish_sn}&per_page={per_page}&all=1",
+            "name": "get-post-list"
+        }
 
 TEST_POST_ID = '6d117aca40ba11efa9795254001e7c00'
 
