@@ -155,7 +155,8 @@ def get_comments_for_post(post_id, headers, proxies):
     comment_index = 0
     while has_more:
         api = API.comment_list(post_id, publish_sn=publish_sn)
-        
+        response = None
+
         try:
             response = session.get(url=api['url'], headers=headers, proxies=proxies, timeout=(10, 30))
             # 处理响应
@@ -167,7 +168,7 @@ def get_comments_for_post(post_id, headers, proxies):
             print("HTTP Request failed:", e)
 
             
-        if response.status_code == 200:
+        if not response and response.status_code == 200:
             data = response.json()
             comments = data['data']['list']
             if comments:
