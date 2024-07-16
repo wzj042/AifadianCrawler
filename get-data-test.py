@@ -1,6 +1,8 @@
 from dotenv import load_dotenv, find_dotenv
 import os, json
 import requests
+from time import sleep
+import random
 from datetime import datetime
 
 
@@ -71,7 +73,30 @@ def test_api(api, headers=headers, proxies=proxies):
         print("当前内容格式错误或代码已过期")
 
 
-post_detail = API.post_detail(TEST_POST_ID)
-test_api(post_detail)
+
+def get_posts(user_id, headers, proxies):
+    publish_sn = '0'  # Initial value for pagination
+    has_more = True
+
+    while has_more:
+        api = API.post_list(user_id, publish_sn)
+        response = requests.get(url=api['url'], headers=headers, proxies=proxies)
+        if response.status_code == 200:
+            data = response.json()
+            posts = data['data']['list']
+            for post in posts:
+                publish_sn = post['publish_sn']  # Update publish_sn for next loop iteration
+                post_detail = API.post_detail(post['post_id'])
+                detail_response = requests.get(url=post_detail['url'], headers=headers, proxies=proxies)
+                save_api_response(post_detail['name'], detail_response.json())
+                
+                # Simulate human-like pauses
+                sleep(random.randint(1, 5))
+            
+            has_more = data['data']['has_more']
+        else:
+            has_more = False
 
 
+user_id = '3f49234e3e8f11eb8f6152540025c377'
+get_posts(user_id, headers, proxies)
