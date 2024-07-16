@@ -1,0 +1,3 @@
+.history/*
+# 避免泄露敏感信息
+dev.env
