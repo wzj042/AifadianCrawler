@@ -156,6 +156,7 @@ def get_comments_for_post(post_id, headers, proxies):
     while has_more:
         api = API.comment_list(post_id, publish_sn=publish_sn)
         response = None
+        # 评论不好判断是否已全部保存，有点麻烦（还没细看评论 json 结构）
 
         try:
             response = session.get(url=api['url'], headers=headers, proxies=proxies, timeout=(10, 30))
@@ -168,7 +169,7 @@ def get_comments_for_post(post_id, headers, proxies):
             print("HTTP Request failed:", e)
 
             
-        if not response and response.status_code == 200:
+        if response and response.status_code == 200:
             data = response.json()
             comments = data['data']['list']
             if comments:
@@ -192,7 +193,6 @@ def get_comments_for_post(post_id, headers, proxies):
         # 随机暂停以模拟人类行为
         sleep(random.randint(1, 3))
 
-    print(f"All comments saved for post {post_id}")
 
 
 def fetch_and_save_all_comments(headers, proxies):
